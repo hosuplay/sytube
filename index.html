@@ -1,11 +1,153 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYTube</title>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <h1>SYTube</h1>
-  <p>Sister YouTube Thumbnail Editor</p>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">SYTube</div>
+        <span class="brand-sub">Thumbnail Editor</span>
+      </div>
+
+      <div class="top-actions">
+        <button id="undoBtn" class="tool-btn">↶ 실행취소</button>
+        <button id="redoBtn" class="tool-btn">↷ 다시실행</button>
+        <button id="duplicateBtn" class="tool-btn">복제</button>
+        <button id="deleteBtn" class="tool-btn danger">삭제</button>
+        <button id="exportBtn" class="export-btn">PNG 저장</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar left-sidebar">
+        <section class="panel">
+          <h2>사진</h2>
+
+          <label class="upload-btn">
+            사진 추가
+            <input
+              id="imageUpload"
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+            />
+          </label>
+        </section>
+
+        <section class="panel">
+          <h2>텍스트</h2>
+
+          <input
+            id="textInput"
+            type="text"
+            placeholder="썸네일 제목 입력"
+            value="남대문 시장"
+          />
+
+          <button id="addTextBtn" class="primary-btn">
+            텍스트 추가
+          </button>
+        </section>
+
+        <section class="panel">
+          <h2>캔버스</h2>
+
+          <button id="bringFrontBtn" class="tool-btn full">
+            맨 앞으로
+          </button>
+
+          <button id="sendBackBtn" class="tool-btn full">
+            맨 뒤로
+          </button>
+        </section>
+      </aside>
+
+      <section class="editor-area">
+        <div class="canvas-toolbar">
+          <span>1280 × 720</span>
+          <span>16:9</span>
+        </div>
+
+        <div class="canvas-stage-wrap">
+          <canvas id="thumbnailCanvas"></canvas>
+        </div>
+
+        <div class="hint">
+          사진이나 글자를 클릭해서 선택한 뒤 움직이거나 크기를 조절해봐.
+        </div>
+      </section>
+
+      <aside class="sidebar right-sidebar">
+        <section class="panel">
+          <h2>선택한 요소</h2>
+          <p id="selectionInfo" class="muted">
+            아직 선택된 요소가 없어.
+          </p>
+        </section>
+
+        <section class="panel">
+          <h2>텍스트 설정</h2>
+
+          <label>
+            글자 크기
+            <input
+              id="fontSize"
+              type="range"
+              min="20"
+              max="180"
+              value="72"
+            />
+          </label>
+
+          <label>
+            글자 색상
+            <input
+              id="textColor"
+              type="color"
+              value="#ffffff"
+            />
+          </label>
+
+          <label>
+            외곽선 색
+            <input
+              id="strokeColor"
+              type="color"
+              value="#000000"
+            />
+          </label>
+
+          <label>
+            외곽선 두께
+            <input
+              id="strokeWidth"
+              type="range"
+              min="0"
+              max="12"
+              value="3"
+            />
+          </label>
+        </section>
+
+        <section class="panel">
+          <h2>미리보기</h2>
+          <div class="preview-box">
+            <canvas id="previewCanvas"></canvas>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
