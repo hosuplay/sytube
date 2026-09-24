@@ -217,22 +217,24 @@ addTextBtn.addEventListener("click", () => {
 });
 
 deleteBtn.addEventListener("click", () => {
-  const active = canvas.getActiveObject();
-  if (!active) return;
+  const activeObjects = canvas.getActiveObjects();
 
-  if (active.type === "activeSelection") {
-    active.forEachObject((obj) => canvas.remove(obj));
-    canvas.discardActiveObject();
-  } else {
-    canvas.remove(active);
+  if (!activeObjects || activeObjects.length === 0) {
+    return;
   }
 
+  canvas.discardActiveObject();
+
+  activeObjects.forEach((obj) => {
+    canvas.remove(obj);
+  });
+
   canvas.requestRenderAll();
+
   saveHistory();
   updateSelectionInfo();
   updatePreview();
 });
-
 duplicateBtn.addEventListener("click", () => {
   const active = canvas.getActiveObject();
   if (!active) return;
